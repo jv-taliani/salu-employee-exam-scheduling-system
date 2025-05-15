@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, time
 from typing import Optional
 from uuid import UUID
-from project.exam_type_enum import ExamTypeEnum
+from exam_type_enum import ExamTypeEnum
 
 
 @dataclass

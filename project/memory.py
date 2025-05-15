@@ -1,9 +1,9 @@
 from typing import List
 
 from uuid import UUID
-from project.clinic import Clinic
-from project.employee import Employee
-from project.exam import Exam
+from clinic import Clinic
+from employee import Employee
+from exam import Exam
 
 clinics: List[Clinic] = []
 employees: List[Employee] = []

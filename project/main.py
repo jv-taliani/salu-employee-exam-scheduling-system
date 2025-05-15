@@ -1,10 +1,10 @@
 from datetime import datetime, date
 from uuid import UUID
-from project.clinic import Clinic, OpeningHours
-from project.employee import Employee
-from project.exam_scheduler import ExamSchedulerClass
-from project.exam_type_enum import ExamTypeEnum
-from project.memory import clinics, employees, exams
+from clinic import Clinic, OpeningHours
+from employee import Employee
+from exam_scheduler import ExamSchedulerClass
+from exam_type_enum import ExamTypeEnum
+from memory import clinics, employees, exams
 
 clinics.clear()
 employees.clear()
@@ -13,7 +13,7 @@ exams.clear()
 clinic = Clinic(
     id=UUID("87654321-4321-8765-4321-567843210987"),
     name="Clinic one",
-    exam_types=ExamTypeEnum.GENERAL_CHECKUP,
+    exam_types=[ExamTypeEnum.GENERAL_CHECKUP],
     opening_hours=OpeningHours(),
 )
 
@@ -27,13 +27,13 @@ employee = Employee(
 clinics.append(clinic)
 employees.append(employee)
 
-sheduler = ExamSchedulerClass(clinics)
+sheduler = ExamSchedulerClass()
 
 result = sheduler.execute(  # agendamento dentro do horario da clínica
     employee_id=employee.id,
     clinic_id=clinic.id,
     exam_type=ExamTypeEnum.GENERAL_CHECKUP,
-    exam_start=datetime(2023, 10, 15, 14, 0),
+    exam_start=datetime(2023, 10, 16, 14, 0),
 )
 print(result)
 
@@ -41,7 +41,7 @@ result = sheduler.execute(  # agendamento fora do horario da clínica
     employee_id=employee.id,
     clinic_id=clinic.id,
     exam_type=ExamTypeEnum.GENERAL_CHECKUP,
-    exam_start=datetime(2023, 10, 15, 6, 0),
+    exam_start=datetime(2023, 10, 16, 6, 0),
 )
 print(result)
 
@@ -49,5 +49,6 @@ result = sheduler.execute(  # agendamento com conflito de horário
     employee_id=employee.id,
     clinic_id=clinic.id,
     exam_type=ExamTypeEnum.GENERAL_CHECKUP,
-    exam_start=datetime(2023, 10, 15, 14, 30),
+    exam_start=datetime(2023, 10, 16, 14, 30),
 )
+print(result)

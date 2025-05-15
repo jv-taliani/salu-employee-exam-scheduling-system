@@ -1,15 +1,11 @@
 from datetime import datetime, timedelta
 from uuid import UUID
-from project.clinic import Clinic
-from project.exam import Exam
-from project.memory import get_clinic_by_id, get_employee_by_id, exams
-from project.exam_type_enum import ExamTypeEnum
+from exam import Exam
+from memory import get_clinic_by_id, get_employee_by_id, exams
+from exam_type_enum import ExamTypeEnum
 
 
 class ExamSchedulerClass:
-    def __init__(self, clinics: list[Clinic]):
-        self.clinics = clinics
-
     def execute(
         self,
         employee_id: UUID,
@@ -54,4 +50,4 @@ class ExamSchedulerClass:
         )
 
         exams.append(new_exam)
-        return True, "scheduled"
+        return True, "Scheduled"

@@ -1,48 +1,52 @@
-Para executar o projeto:
-Clone o repositório:
+## Como executar o projeto
 
-git clone https://github.com/seu-usuario/seu-repo.git
-cd seu-repo
+```bash
+# Clone o repositório
+git clone https://github.com/jv-taliani/salu-employee-exam-scheduling-system.git
+cd salu-employee-exam-scheduling-system
+cd project
 
-Execute os testes de simulação:
-
+# Execute os testes de simulação
 python main.py
+```
 
+## Assinatura do método
+
+```python
 def execute(
     employee_id: UUID,
     clinic_id: UUID,
     exam_type: ExamTypeEnum,
     exam_start: datetime,
 ) -> tuple[bool, str]
+```
 
-O método execute da classe ExamSchedulerClass realiza o agendamento de um exame para um funcionário, obedecendo os seguintes fatores:
+## Regras de agendamento
 
-A clínica e o funcionário existem
-A clínica oferece o tipo de exame solicitado
-O exame está dentro do horário de funcionamento da clínica
-Não há outro exame marcado no mesmo horário
+* A clínica e o funcionário existem  
+* A clínica oferece o tipo de exame solicitado  
+* O exame está dentro do horário de funcionamento da clínica  
+* Não há outro exame marcado no mesmo horário  
 
-Se tudo estiver correto, o exame é salvo em memória (exams.append(...)) e o método retorna:
+Quando todas as regras são atendidas, o exame é salvo em memória (`exams.append(...)`) e o método retorna:
+
+```python
 (True, "Sheduled")
-Caso algo esteja inválido, o retorno é False com a explicação.
+```
 
-Entradas e saídas
+Se alguma regra falhar, o método retorna `False` acompanhado da explicação.
 
-Agendamento com sucesso:
+### Exemplos de entrada e saída
 
-(True, "Sheduled")
+| Cenário                         | Retorno                                    |
+|---------------------------------|--------------------------------------------|
+| Agendamento com sucesso         | `(True,  "Sheduled")`                      |
+| Exame fora do horário           | `(False, "Examination outside opening hours")` |
+| Conflito com outro exame        | `(False, "Exam not scheduled due to time conflict")` |
 
-Fora do horário:
+## Estrutura do projeto
 
-(False, "Examination outside opening hours")
-
-Conflito com outro exame:
-
-(False, "Exam not scheduled due to time conflict")
-
-
-Estrutura do Projeto
-
+```
 project/
 ├── clinic.py              # Classes Clinic e OpeningHours
 ├── employee.py            # Classe Employee
@@ -51,6 +55,6 @@ project/
 ├── exam_scheduler.py      # Classe ExamSchedulerClass (principal)
 ├── memory.py              # Listas de armazenamento + funções de busca
 ├── test.py                # Criação de dados simulados
-main.py                    # Simulação de 3 agendamentos
-README.md                  # Instruções e explicações
-
+├── main.py                # Simulação de 3 agendamentos
+└── README.md              # Instruções e explicações
+```
